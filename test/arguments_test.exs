@@ -105,6 +105,10 @@ defmodule ArgumentsTest do
     flag "double", do: [
       type: :float
     ]
+
+    flag "more", do: [
+      type: :boolean
+    ]
   end
 
   test "Type Args" do
@@ -117,7 +121,11 @@ defmodule ArgumentsTest do
       %{argument_type: :flag,
         name: :double,
         string_name: "double",
-        type: :float}]
+        type: :float},
+      %{argument_type: :flag,
+        name: :more,
+        string_name: "more",
+        type: :boolean}]
     assert expected == TestTypesArgs.arguments()
   end
 
@@ -132,9 +140,10 @@ defmodule ArgumentsTest do
     assert %{double: 0.42} == TestTypesArgs.parse(["--double", "0.42"])
   end
 
-  test "Auto Flags" do
-    assert %{doit: true} == TestTypesArgs.parse(["--doit"])
-    assert %{done: "it"} == TestTypesArgs.parse(["--done", "it"])
+  test "Strict Flags" do
+    assert %{} == TestTypesArgs.parse(["--doit"])
+    assert %{} == TestTypesArgs.parse(["--done", "it"])
+    assert %{more: true} == TestTypesArgs.parse(["--more", "test"])
   end
 
   defmodule TestAltNameArgs do

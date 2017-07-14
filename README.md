@@ -80,4 +80,7 @@ iex> MyArguments.parse(["--more"])
 
 iex> MyArguments.parse(["-m"])
 %{more: true}
+
+iex> MyArguments.parse(["--not-defined"])
+%{}
 ```

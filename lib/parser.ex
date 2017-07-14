@@ -10,7 +10,7 @@ defmodule Arguments.Parser do
   def parse(incoming, arguments) do
     incoming
     |> OptionParser.parse(
-      switches: get_switches(arguments),
+      strict: get_switches(arguments),
       aliases: get_aliases(arguments))
     |> flags_to_map()
     |> apply_commands(arguments)
